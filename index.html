@@ -3,115 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Generate Your QR Code</title>
     <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #B9CFD4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
-        
-        body{
-            background-color: #47D7FF;
-            display:flex;
-            justify-content:center;
+
+        .container {
+            text-align: center;
+            background-color: #CEE0DC;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        
-        .container{
-            margin-top:2rem;
-            height:500px;
-            width:90%;
-            display:flex;
-            justify-content:center;
-            flex-direction:column;
-           
-            gap:2rem 2rem;
-            margin-left:2rem
+
+        h1 {
+            color:#141216;
         }
-        
-        .container input{
-            padding:0.5rem 2rem;
-            width:80%;
-            max-width:600px;
-            height:30px;
-            border:none;
-            border-radius:0.1rem;
-            margin-left:2rem
+
+        input {
+            padding: 8px;
+            margin: 10px 0;
+            width: 80%;
+            box-sizing: border-box;
         }
-        
-        .container button{
-            color:white;
-            width:50%;
-            max-width:300px;
-            height:40px;
-            border:none;
-            background-color: #150811;
-            border-radius:1rem;
-            margin-left:2rem;
-            transition:0.3s;
-            cursor:pointer
+
+        button {
+            background-color: #446870;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
-        
-        .container h1{
-            margin-left:2rem;
-            color:#000000;
-            font-size:2rem;
-            font-weight:bold;
-           
+
+        #imgBox {
+            margin: 20px 0;
         }
-        
-        .container button:hover{
-            background-color:#2D1124
+
+        img {
+            max-width: 200px;
+            height: 200px;
+            border: 1px solid #AFAAB9;
+            border-radius: 4px;
         }
-        
-        .container #imgBox {
-            margin-left:2rem;
+
+        #downloadLink {
+            display: none;
+            margin-top: 10px;
+            background-color: #5ccc8f;
+            color: #ffffff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
-        
-        .container #imgBox img{
-            height:100px;
-            width:100px;
-            cursor:pointer;
-            transition:0.3s
-        }
-        
-        .container #imgBox img:hover{
-            transform:scale(1.1)
+button:hover{
+    background-color: #2f494e;
+}
+        #downloadLink:hover {
+            background-color: #4eb87e;
         }
     </style>
 </head>
 <body>
     <div class="container">
-       
-        <h1>#Project</h1>
-        <h1>Generate Your QR Code </h1>
-        <input id='input' type="text" value='Overloaded Enthusiasm' placeholder="Enter your Text or URL">
+        <h1>Generate Your QR Code</h1>
+        <input id='input' type="text" placeholder="Enter your Text or URL">
         <div id="imgBox">
-            <img id='img' src="" alt="Your QR will be here..." download>
+            <img id='img' src="" alt="Your image will be here soon...">
         </div>
-        <button id="btn" >Generate QR</button>
+        <button id="btn">Generate QR</button>
+        <a id="downloadLink" download="generated_qr_code.png">Download QR</a>
     </div>
 
-
     <script>
+        let qrText = document.getElementById('input');
+        let qrImage = document.getElementById('img');
+        let button = document.getElementById('btn');
+        let downloadLink = document.getElementById('downloadLink');
 
-let qrText=document.getElementById('input');
-let qrImage=document.getElementById('img');
-let imgBox=document.getElementById('imgBox');
-let button=document.getElementById('btn');
+        function generateQR() {
+            let imageUrl = "https://qrapi.dev/api/generate?data=" + encodeURIComponent(qrText.value);
+            qrImage.src = imageUrl;
 
-function generateQR(){
-    qrImage.src = "https://qrapi.dev/api/generate?data=" + encodeURIComponent(qrText.value);
+            // Show the download link and set its attributes
+            downloadLink.href = imageUrl;
+            downloadLink.style.display = "block";
+        }
 
-    console.log(qrImage.src)
-}
-
-button.addEventListener('click',generateQR)
-
-
-
+        button.addEventListener('click', generateQR);
     </script>
 </body>
 </html>
